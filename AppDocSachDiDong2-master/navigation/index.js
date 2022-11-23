@@ -6,23 +6,31 @@ import SignInScreen from "../screens/SignInScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 import Home from "../screens/Home";
 import BookDetailsScreen from "../screens/BookDetailsScreen";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 function AppNavigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
+      <Tab.Navigator
         screenOptions={{
           headerShown: false,
         }}
       >
-        <Stack.Screen name="SignIn" component={SignInScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="BookDetailsScreen" component={BookDetailsScreen} />
-      </Stack.Navigator>
+        <Tab.Screen name="SignIn" component={SignInScreen} />
+        <Tab.Screen name="SignUp" component={SignUpScreen} />
+        <Tab.Screen name="Home" component={Home}
+           
+           
+         />
+        <Tab.Screen name="BookDetailsScreen" component={BookDetailsScreen} />
+      </Tab.Navigator>
     </NavigationContainer>
+    
   );
 }
 export default AppNavigation;
+
+
