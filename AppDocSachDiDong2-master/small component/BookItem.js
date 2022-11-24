@@ -20,6 +20,7 @@ function BookItem(props) {
             color: "#000",
             fontWeight: "bold",
             marginVertical: 8,
+            textAlign: "center",
           }}
         >
           {item?.name}
