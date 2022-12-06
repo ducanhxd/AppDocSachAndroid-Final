@@ -14,6 +14,8 @@ import {
   TouchableOpacity,
   Alert,
   TextInput,
+  Keyboard,
+  LogBox,
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
@@ -25,6 +27,10 @@ export default function Search({ route }) {
   const url = "https://63783b1e0992902a25181978.mockapi.io";
   const [data, setdata] = useState([]);
   const [datasearch, setdatasearch] = useState([]);
+  LogBox.ignoreLogs([
+    "VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.",
+  ]);
+
   const renderItem = ({ item, index }) => {
     return <BookItem item={item} index={index} navigation={navigation} />;
   };
@@ -34,37 +40,35 @@ export default function Search({ route }) {
   }
 
   useEffect(() => {
-    if (route.params.ingredient == null) {
-      axios
-        .get(`${url}/Books/search/${route.params.name}`)
-        .then((res) => {
-          setdata(res.data);
-        })
-        .catch((err) => {
-          setdata([]);
-        });
-    }
+    axios
+      .get(`https://63783b1e0992902a25181978.mockapi.io/Book`)
+      .then((res) => {
+        setdata(res.data);
+      })
+      .catch((err) => {
+        setdata([]);
+      });
   }, []);
 
   return (
-    <>
-      {data.length == 0 ? (
-        <View>
-          <Text style={{ color: "red", fontSize: 15 }}>
-            Không tìm thấy kết quả cho "{route.params.name}"
+    <ScrollView>
+      <View>
+        <View style={{ padding: 20 }}>
+          <Text style={{ textAlign: "center", fontSize: 30 }}>
+            Tất cả các sách:
           </Text>
         </View>
-      ) : (
-        <FlatList
-          data={data}
-          // renderItem={({ item }) => <Item name={item.name} />}
-          renderItem={renderItem}
-          initialNumToRender={7}
-          keyExtractor={(item, index) => item + index}
-          numColumns={2}
-        />
-      )}
-    </>
+        <View style={{ padding: 20 }}>
+          <FlatList
+            data={data}
+            // renderItem={({ item }) => <Item name={item.name} />}
+            renderItem={renderItem}
+            numColumns={2}
+            horizontal={false}
+          />
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 

@@ -12,26 +12,31 @@ export default function BookDetailsScreen({ navigation, route }) {
     <ScrollView style={{ backgroundColor: "#fff", flex: 1 }}>
       <View style={{ position: "relative" }}>
         <Image
-          style={{ width: "100%", height: 300 }}
+          style={{ width: "100%", height: 550 }}
           source={{ uri: item.image }}
         />
         <TouchableOpacity
           onPress={onGoBack}
           style={{
-            backgroundColor: "#ffffff60",
             position: "absolute",
             top: 30,
-            left: 12,
             width: 40,
             height: 40,
             justifyContent: "center",
             alignItems: "center",
             borderRadius: 100,
           }}
-        ></TouchableOpacity>
+        >
+          <Image
+            style={{ height: 37, width: 37, color: "white" }}
+            source={require("../assets/back-button.png")}
+          />
+        </TouchableOpacity>
       </View>
       <View style={{ paddingHorizontal: 12, marginTop: 12 }}>
-        <Text style={{ fontSize: 25, fontWeight: "bold" }}>{item.name}</Text>
+        <Text style={{ fontSize: 25, fontWeight: "bold", textAlign: "center" }}>
+          {item.name}
+        </Text>
         <Text
           style={{
             color: "#000",

@@ -17,15 +17,18 @@ import sach from "../data/sach.json";
 import sachhot from "../data/sachhot.json";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { render } from "react-dom";
+import { FontAwesome } from "@expo/vector-icons";
 
 export default function Home({ navigation }) {
   const [apidata, setApidata] = useState([]);
   const [apidata2, setApidata2] = useState([]);
+  const [apidata3, setApidata3] = useState([]);
   const [search, setsearch] = useState("");
   const [user, setuser] = useState(null);
   const [namebook, setnamebook] = useState("");
   let urlpro = `https://63783b1e0992902a25181978.mockapi.io/Books`;
   let urlpro2 = `https://63783b1e0992902a25181978.mockapi.io/HotBooks`;
+  let urlpro3 = `https://63783b1e0992902a25181978.mockapi.io/ForYou`;
   const renderItem = ({ item, index }) => {
     return <BookItem item={item} index={index} navigation={navigation} />;
   };
@@ -44,6 +47,11 @@ export default function Home({ navigation }) {
       .get(`https://63783b1e0992902a25181978.mockapi.io/HotBooks`)
       .then((Response) => {
         setApidata2(Response.data);
+      });
+    axios
+      .get(`https://63783b1e0992902a25181978.mockapi.io/ForYou`)
+      .then((Response) => {
+        setApidata3(Response.data);
       });
   };
   useEffect(() => {
@@ -65,30 +73,20 @@ export default function Home({ navigation }) {
         setApidata2([]);
       });
   }, []);
+  useEffect(function () {
+    fetch(urlpro3)
+      .then((e) => e.json())
+      .then((rep) => setApidata3(rep))
+      .catch((err) => {
+        setApidata3([]);
+      });
+  }, []);
   return (
-    <View style={{ flex: 1 }}>
+    <ScrollView>
       <View style={styles.header}>
         <Header
           centerComponent={{ text: "Trang Chủ", style: { color: "#fff" } }}
         />
-        <TouchableWithoutFeedback
-          onPress={() => {
-            Keyboard.dismiss();
-          }}
-        >
-          <View>
-            <TextInput button
-            
-              style={styles.TextInputStyle}
-              placeholder="Tìm kiếm sách"
-              underlineColorAndroid="transparent"
-              onChangeText={setnamebook}
-              onPress={() => {
-                navigation.navigate("BookSearch", { name: namebook });
-              }}
-            />
-          </View>
-        </TouchableWithoutFeedback>
       </View>
       <View style={styles.sectionContainer}>
         <View
@@ -157,13 +155,22 @@ export default function Home({ navigation }) {
         </View>
         <FlatList
           style={{ marginRight: 15 }}
-          data={sachhot}
           horizontal={true}
           renderItem={renderItem}
           contentContainerStyle={{ marginBottom: -10 }}
+          data={apidata3}
         />
       </View>
-    </View>
+      <View>
+        <Button
+          title="Xem tất cả sách!"
+          name="search"
+          onPress={() => {
+            navigation.navigate("BookSearch", { name: namebook });
+          }}
+        />
+      </View>
+    </ScrollView>
   );
 }
 

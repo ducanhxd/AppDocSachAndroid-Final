@@ -18,9 +18,7 @@ import { withNavigation } from "react-navigation";
 import axios from "axios";
 import SignUpScreen from "./SignUpScreen";
 const URL = "localhost:3000/login";
-let urlpro = `http://192.168.100.7:3000/products`;
-let urlpro1 = `http://192.168.100.7:3000/products`;
-let urluser = `http://192.168.100.7:3000/user`;
+let urluser = `http://192.168.100.8:3000/user`;
 
 export default function SignInScreen({ navigation }) {
   const [Email, setemail] = useState("");
@@ -39,8 +37,9 @@ export default function SignInScreen({ navigation }) {
   const login = async () => {
     try {
       const res = await axios.get(
-        `http://192.168.100.7:3000/user/${Email.trim()}`
+        `http://192.168.100.8:3000/user/${Email.trim()}`
       );
+
       if (res.data.password == password.trim()) {
         navigation.navigate("Home");
       } else {
