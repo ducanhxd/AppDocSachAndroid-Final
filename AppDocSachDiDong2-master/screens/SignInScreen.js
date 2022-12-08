@@ -18,7 +18,7 @@ import { withNavigation } from "react-navigation";
 import axios from "axios";
 import SignUpScreen from "./SignUpScreen";
 const URL = "localhost:3000/login";
-let urluser = `http://192.168.100.8:3000/user`;
+let urluser = `https://didong-api.onrender.com/user`;
 
 export default function SignInScreen({ navigation }) {
   const [Email, setemail] = useState("");
@@ -37,7 +37,7 @@ export default function SignInScreen({ navigation }) {
   const login = async () => {
     try {
       const res = await axios.get(
-        `http://192.168.100.8:3000/user/${Email.trim()}`
+        `https://didong-api.onrender.com/user/${Email.trim()}`
       );
 
       if (res.data.password == password.trim()) {

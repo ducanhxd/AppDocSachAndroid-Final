@@ -1,5 +1,15 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  Button,
+} from "react-native";
 import React, { useState } from "react";
+import * as WebBrowser from "expo-web-browser";
+import * as Linking from "expo-linking";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function BookDetailsScreen({ navigation, route }) {
@@ -66,6 +76,10 @@ export default function BookDetailsScreen({ navigation, route }) {
           </View>
           <View style={{ flex: 1 }} />
         </View>
+        <Button
+          title="Đọc sách bản đầy đủ ngay!"
+          onPress={() => WebBrowser.openBrowserAsync(item.url)}
+        />
         <View style={{ flexDirection: "row", marginTop: 20 }}></View>
       </View>
     </ScrollView>

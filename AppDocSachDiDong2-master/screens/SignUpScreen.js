@@ -41,13 +41,13 @@ export default function SignUpScreen({ navigation }) {
   const createAccount = async () => {
     try {
       const res = await axios.get(
-        `http:/192.168.100.8:3000/user/${Email.trim()}`
+        `https://didong-api.onrender.com/user/${Email.trim()}`
       );
       if (res.data.Email == Email.trim()) {
         alert("Email đã được đăng ký!");
         return;
       } else {
-        const res = await axios.post("http://192.168.100.8:3000/user/", {
+        const res = await axios.post("https://didong-api.onrender.com/user", {
           Name: Name.trim(),
           Email: Email.trim(),
           password: password.trim(),
@@ -112,14 +112,12 @@ export default function SignUpScreen({ navigation }) {
 
             <Input
               placeholder="Số Điện Thoại"
-              secureTextEntry={true}
               leftIcon={<Icon name="phone" size={24} color="blue" />}
               onChangeText={setphone}
             />
 
             <Input
               placeholder="Email"
-              secureTextEntry={true}
               leftIcon={<Icon name="lock" size={24} color="blue" />}
               onChangeText={setemail}
             />
