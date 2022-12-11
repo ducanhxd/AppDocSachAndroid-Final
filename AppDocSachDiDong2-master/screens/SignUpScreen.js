@@ -92,11 +92,8 @@ export default function SignUpScreen({ navigation }) {
               style={{
                 width: 200,
                 height: 150,
-                marginLeft: 100,
+                marginLeft: 70,
                 marginTop: -90,
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
               }}
             />
             <Text

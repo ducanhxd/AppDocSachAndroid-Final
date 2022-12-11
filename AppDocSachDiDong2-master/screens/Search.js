@@ -53,7 +53,7 @@ export default function Search({ route }) {
   return (
     <ScrollView>
       <View>
-        <View style={{ padding: 20 }}>
+        <View style={{ marginTop: 50 }}>
           <Text style={{ textAlign: "center", fontSize: 30 }}>
             Tất cả các sách:
           </Text>

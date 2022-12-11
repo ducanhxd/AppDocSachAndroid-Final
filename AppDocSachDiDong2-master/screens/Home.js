@@ -8,6 +8,7 @@ import {
   Image,
   TextInput,
   TouchableWithoutFeedback,
+  ImageBackground,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Header, Input, Button } from "react-native-elements";
@@ -32,6 +33,7 @@ export default function Home({ navigation }) {
   const renderItem = ({ item, index }) => {
     return <BookItem item={item} index={index} navigation={navigation} />;
   };
+
   const getUserData = async () => {
     let curUser = await AsyncStorage.getItem("curUser");
     curUser = JSON.parse(curUser);
@@ -81,6 +83,7 @@ export default function Home({ navigation }) {
         setApidata3([]);
       });
   }, []);
+  const Separator = () => <View style={styles.separator} />;
   return (
     <ScrollView>
       <View style={styles.header}>
@@ -88,87 +91,99 @@ export default function Home({ navigation }) {
           centerComponent={{ text: "Trang Chủ", style: { color: "#fff" } }}
         />
       </View>
-      <View style={styles.sectionContainer}>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <Image
-            source={require("../assets/new-icon.gif")}
-            style={{ height: 40, width: 40 }}
-          />
-          <Text style={styles.title}>Sách Mới</Text>
-          <Image
-            source={require("../assets/new-icon.gif")}
-            style={{ height: 40, width: 40 }}
+      <View>
+        <View style={styles.sectionContainer}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={require("../assets/new-icon.gif")}
+              style={{ height: 40, width: 40 }}
+            />
+            <Text style={styles.title}>Sách Mới</Text>
+            <Image
+              source={require("../assets/new-icon.gif")}
+              style={{ height: 40, width: 40 }}
+            />
+          </View>
+          <FlatList
+            style={{ marginRight: 15 }}
+            data={apidata}
+            horizontal={true}
+            renderItem={renderItem}
           />
         </View>
-        <FlatList
-          style={{ marginRight: 15 }}
-          data={apidata}
-          horizontal={true}
-          renderItem={renderItem}
-        />
-      </View>
-      <View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <Image
-            source={require("../assets/hot-icon.gif")}
-            style={{ height: 50, width: 50 }}
-          />
-          <Text style={styles.title}>Sách Hot</Text>
-          <Image
-            source={require("../assets/hot-icon.gif")}
-            style={{ height: 50, width: 50 }}
-          />
-        </View>
-        <FlatList
-          style={{ marginRight: 15 }}
-          data={apidata2}
-          horizontal={true}
-          renderItem={renderItem}
-        />
-      </View>
-      <View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <Image
-            source={require("../assets/heart-icon.gif")}
-            style={{ height: 50, width: 50 }}
-          />
-          <Text style={styles.title}>Dành cho bạn</Text>
-          <Image
-            source={require("../assets/heart-icon.gif")}
-            style={{ height: 50, width: 50 }}
+        <View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={require("../assets/hot-icon.gif")}
+              style={{ height: 50, width: 50 }}
+            />
+            <Text style={styles.title}>Sách Hot</Text>
+            <Image
+              source={require("../assets/hot-icon.gif")}
+              style={{ height: 50, width: 50 }}
+            />
+          </View>
+          <FlatList
+            style={{ marginRight: 15 }}
+            data={apidata2}
+            horizontal={true}
+            renderItem={renderItem}
           />
         </View>
-        <FlatList
-          style={{ marginRight: 15 }}
-          horizontal={true}
-          renderItem={renderItem}
-          contentContainerStyle={{ marginBottom: -10 }}
-          data={apidata3}
-        />
-      </View>
-      <View>
-        <Button
-          title="Xem tất cả sách!"
-          name="search"
-          onPress={() => {
-            navigation.navigate("BookSearch", { name: namebook });
-          }}
-        />
+        <View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={require("../assets/heart-icon.gif")}
+              style={{ height: 50, width: 50 }}
+            />
+            <Text style={styles.title}>Dành cho bạn</Text>
+            <Image
+              source={require("../assets/heart-icon.gif")}
+              style={{ height: 50, width: 50 }}
+            />
+          </View>
+          <FlatList
+            style={{ marginRight: 15 }}
+            horizontal={true}
+            renderItem={renderItem}
+            contentContainerStyle={{ marginBottom: -10 }}
+            data={apidata3}
+          />
+        </View>
+        <View>
+          <Button
+            title="Xem tất cả sách!"
+            name="search"
+            onPress={() => {
+              navigation.navigate("BookSearch", { name: namebook });
+            }}
+          />
+        </View>
+        <Separator />
+        <View>
+          <Button
+            title="Đăng xuất"
+            color="#000000"
+            onPress={() => {
+              navigation.navigate("SignIn");
+            }}
+          />
+        </View>
       </View>
     </ScrollView>
   );
@@ -188,5 +203,10 @@ const styles = StyleSheet.create({
     margin: 5,
     borderColor: "#009688",
     backgroundColor: "white",
+  },
+  separator: {
+    marginVertical: 8,
+    borderBottomColor: "#737373",
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
 });

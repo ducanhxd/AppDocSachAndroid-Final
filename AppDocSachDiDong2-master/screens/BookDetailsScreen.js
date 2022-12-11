@@ -5,6 +5,9 @@ import {
   TouchableOpacity,
   ScrollView,
   Button,
+  StyleSheet,
+  TextInput,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import * as WebBrowser from "expo-web-browser";
@@ -18,6 +21,8 @@ export default function BookDetailsScreen({ navigation, route }) {
   const onGoBack = () => {
     navigation.goBack();
   };
+  const Separator = () => <View style={styles.separator} />;
+  const showAlert = () => Alert.alert("Bạn đã gửi bình luận thành công");
   return (
     <ScrollView style={{ backgroundColor: "#fff", flex: 1 }}>
       <View style={{ position: "relative" }}>
@@ -50,16 +55,17 @@ export default function BookDetailsScreen({ navigation, route }) {
         <Text
           style={{
             color: "#000",
-            fontSize: 12,
+            fontSize: 20,
             fontWeight: "bold",
             marginTop: 24,
           }}
         >
-          MÔ TẢ
+          MÔ TẢ:
         </Text>
         <Text
           style={{
             color: "gray",
+            fontSize: 20,
           }}
         >
           {item.description}
@@ -80,8 +86,45 @@ export default function BookDetailsScreen({ navigation, route }) {
           title="Đọc sách bản đầy đủ ngay!"
           onPress={() => WebBrowser.openBrowserAsync(item.url)}
         />
-        <View style={{ flexDirection: "row", marginTop: 20 }}></View>
+        <Separator />
+        <View style={styles.commentContainer}>
+          <Text style={styles.titleComment}>
+            Để lại bình luận của bạn tại đây
+          </Text>
+          <TextInput style={styles.input} placeholder="Bình luận của bạn" />
+          <Button
+            styles={styles.buttonComment}
+            onPress={showAlert}
+            title="Bình luận"
+          />
+        </View>
       </View>
     </ScrollView>
   );
 }
+const styles = StyleSheet.create({
+  separator: {
+    marginVertical: 8,
+    borderBottomColor: "#737373",
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  commentContainer: {
+    margin: 10,
+    padding: 20,
+  },
+  titleComment: {
+    textAlign: "center",
+    fontSize: 20,
+  },
+  input: {
+    borderColor: "gray",
+    width: "100%",
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+    top: 20,
+    marginBottom: 50,
+    multiline: true,
+  },
+  buttonComment: {},
+});

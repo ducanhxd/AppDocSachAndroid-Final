@@ -1,5 +1,6 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
+import { FontAwesome } from "@expo/vector-icons";
 
 function BookItem(props) {
   const { item, navigation, index } = props;
@@ -19,12 +20,44 @@ function BookItem(props) {
           style={{
             color: "#000",
             fontWeight: "bold",
-            marginVertical: 8,
+            marginVertical: 10,
             textAlign: "center",
           }}
         >
           {item?.name}
         </Text>
+        <View style={styles.rating}>
+          <FontAwesome
+            style={styles.star}
+            name="star"
+            size={18}
+            color={"#e47911"}
+          />
+          <FontAwesome
+            style={styles.star}
+            name="star"
+            size={18}
+            color={"#e47911"}
+          />
+          <FontAwesome
+            style={styles.star}
+            name="star"
+            size={18}
+            color={"#e47911"}
+          />
+          <FontAwesome
+            style={styles.star}
+            name="star"
+            size={18}
+            color={"#e47911"}
+          />
+          <FontAwesome
+            style={styles.star}
+            name="star"
+            size={18}
+            color={"#e47911"}
+          />
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -58,5 +91,13 @@ const styles = StyleSheet.create({
   infoContainer: {
     paddingHorizontal: 12,
     marginBottom: 12,
+  },
+  rating: {
+    flexDirection: "row",
+  },
+  star: {
+    left: 10,
+    margin: 3.5,
+    marginBottom: 10,
   },
 });
